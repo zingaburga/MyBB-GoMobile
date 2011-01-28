@@ -195,6 +195,8 @@ function gomobile_posts($p)
 {
 	global $mybb;
 
+	// TODO: we shouldn't trust the input here so much
+	//       perhaps just see if the theme being used is GoMobile
 	$is_mobile = intval($mybb->input['mobile']);
 
 	// Was the post sent from GoMobile?
@@ -205,8 +207,6 @@ function gomobile_posts($p)
 
 	// If so, we're going to store it for future use
 	$p->post_insert_data['mobile'] = $is_mobile;
-
-	return $p;
 } 
 
 function gomobile_usercp_options()

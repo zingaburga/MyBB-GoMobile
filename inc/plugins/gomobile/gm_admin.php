@@ -138,7 +138,6 @@ function gomobile_install()
 	// Get our settings ready
 	$setting_group = array
 	(
-		"gid" => "NULL",
 		"name" => "gomobile",
 		"title" => "GoMobile Settings",
 		"description" => "Configures options for MyBB GoMobile.",

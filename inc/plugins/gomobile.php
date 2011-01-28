@@ -45,7 +45,7 @@ $plugins->add_hook("datahandler_post_insert_thread_post", "gomobile_posts");
 
 // Portal hooks
 $plugins->add_hook("portal_start", "gomobile_portal_default");
-$plugins->add_hook("pro_portal_start", "gomobile_portal_pro");
+$plugins->add_hook("pro_portal_start", "gomobile_portal_default");
 
 // Forumdisplay hooks
 $plugins->add_hook("forumdisplay_thread", "gomobile_forumdisplay");
@@ -182,17 +182,6 @@ function gomobile_portal_default()
 	global $mybb, $lang;
 	
 	// Has the admin disabled viewing of the portal from GoMobile?
-	if($mybb->user['style'] == $mybb->settings['gomobile_theme_id'] && $mybb->settings['gomobile_redirect_enabled'] == 1)
-	{
-		redirect($mybb->settings['gomobile_redirect_location'], $lang->gomobile_redirect_portal);
-	}
-}
-
-function gomobile_portal_pro()
-{
-	global $mybb, $lang;
-	
-	// Same as above, only for ProPortal
 	if($mybb->user['style'] == $mybb->settings['gomobile_theme_id'] && $mybb->settings['gomobile_redirect_enabled'] == 1)
 	{
 		redirect($mybb->settings['gomobile_redirect_location'], $lang->gomobile_redirect_portal);

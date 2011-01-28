@@ -39,39 +39,36 @@ if(!defined("IN_MYBB"))
 global $lang;
 
 // Run only if the user isn't updating or installing
-if(!defined("INSTALL_ROOT"))
+// Page hook, for overriding the theme as best as we can
+$plugins->add_hook("global_start", "gomobile_forcetheme");
+
+// New Reply & New Thread hooks, for determining whether or not the post is from a mobile
+$plugins->add_hook("datahandler_post_insert_post", "gomobile_posts");
+$plugins->add_hook("datahandler_post_insert_thread_post", "gomobile_threads");
+
+// Portal hooks
+$plugins->add_hook("portal_start", "gomobile_portal_default");
+$plugins->add_hook("pro_portal_start", "gomobile_portal_pro");
+
+// Forumdisplay hooks
+$plugins->add_hook("forumdisplay_thread", "gomobile_forumdisplay");
+
+// Showthread hooks
+$plugins->add_hook("showthread_end", "gomobile_showthread");
+
+// User CP Options
+$plugins->add_hook("usercp_options_end", "gomobile_usercp_options");
+$plugins->add_hook("usercp_do_options_end", "gomobile_usercp_options");
+
+// Misc hooks
+$plugins->add_hook("misc_start", "gomobile_switch_version");
+
+$lang->load("gomobile");
+
+
+if(defined("IN_ADMINCP"))
 {
-	// Page hook, for overriding the theme as best as we can
-	$plugins->add_hook("global_start", "gomobile_forcetheme");
-
-	// New Reply & New Thread hooks, for determining whether or not the post is from a mobile
-	$plugins->add_hook("datahandler_post_insert_post", "gomobile_posts");
-	$plugins->add_hook("datahandler_post_insert_thread_post", "gomobile_threads");
-
-	// Portal hooks
-	$plugins->add_hook("portal_start", "gomobile_portal_default");
-	$plugins->add_hook("pro_portal_start", "gomobile_portal_pro");
-	
-	// Forumdisplay hooks
-	$plugins->add_hook("forumdisplay_thread", "gomobile_forumdisplay");
-	
-	// Showthread hooks
-	$plugins->add_hook("showthread_end", "gomobile_showthread");
-
-	// User CP Options
-	$plugins->add_hook("usercp_options_end", "gomobile_usercp_options");
-	$plugins->add_hook("usercp_do_options_end", "gomobile_usercp_options");
-
-	// Misc hooks
-	$plugins->add_hook("misc_start", "gomobile_switch_version");
-
-	$lang->load("gomobile");
-	
-	
-	if(defined("IN_ADMINCP"))
-	{
-		require MYBB_ROOT."inc/plugins/gomobile/gm_admin.php";
-	}
+	require MYBB_ROOT."inc/plugins/gomobile/gm_admin.php";
 }
 
 function gomobile_forcetheme()

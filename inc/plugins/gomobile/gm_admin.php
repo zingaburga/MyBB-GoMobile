@@ -213,12 +213,7 @@ function gomobile_install()
 function gomobile_is_installed()
 {
 	global $db;
-
-	if($db->table_exists("gomobile"))
-	{
-		// The gomobile database table exists, so it must be installed.
-		return true;
-	}
+	return $db->table_exists("gomobile");
 }
 
 function gomobile_uninstall()

@@ -10,6 +10,7 @@ $plugins->add_hook('admin_load','gomobile_admin');
 function gomobile_info()
 {
 	global $lang;
+	$lang->load('gomobile');
 
 	// Plugin information
 	return array(
@@ -26,6 +27,7 @@ function gomobile_info()
 function gomobile_install()
 {
 	global $db, $mybb, $lang;
+	$lang->load('gomobile');
 
 	$tinyint = 'smallint';
 	// Install the right database table for our database type
@@ -250,6 +252,7 @@ function gomobile_adminAction(&$action)
 function gomobile_adminLink(&$sub)
 {
 	global $lang;
+	$lang->load('gomobile');
 
 	end($sub);
 
@@ -271,6 +274,7 @@ function gomobile_admin()
 		return false;
 	}
 
+	$lang->load('gomobile');
 	$page->add_breadcrumb_item($lang->gomobile, 'index.php?module=config-gomobile');
 
 	if($mybb->input['action'] == 'edit')

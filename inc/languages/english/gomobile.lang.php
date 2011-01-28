@@ -31,27 +31,6 @@
  inc/languages/xxx/gomobile.lang.php: The various strings shown to the user
 */
 
-$l['gomobile'] = "MyBB GoMobile";
-$l['gomobile_sidemenu'] = "GoMobile Regex List";
-$l['gomobile_desc'] = "MyBB GoMobile's accompanying plugin, forces user agents matching a regex to use a certain theme.";
-$l['gomobile_regex'] = "Regular Expression";
-$l['gomobile_addnew'] = "Add New Regex";
-$l['gomobile_edit'] = "Edit Regex";
-$l['gomobile_save'] = "Save Regex";
-$l['gomobile_delete'] = "Delete Regex";
-$l['gomobile_noexist'] = "That regex doesn't exist!";
-$l['gomobile_regex_desc'] = "UA Theme matches this to the user's agent string to determine which theme to use.";
-$l['gomobile_noregex'] = "No regex to match. Please input a regex so GoMobile knows what to do.";
-$l['gomobile_saved'] = "Regex saved!";
-$l['gomobile_mobile_version'] = "Mobile Version";
-
-// Edit these before installing if you are translating
-$l['gomobile_settings_mobile_name'] = "Use this setting to shorten both your header and breadcrumb (navigation) text. You may use full HTML formatting.";
-$l['gomobile_settings_redirect_enabled'] = "Enable or disable the GoMobile portal redirect. Enabling this will automatically redirect users who visit to portal on their mobile, to a page of your choice instead.";
-$l['gomobile_settings_redirect_location'] = "Enter the location (relative) that you would like to redirect users to. Ignore this if the redirect option above is not enabled.";
-$l['gomobile_settings_theme_id'] = "Enter the tid (Theme ID) of GoMobile below. This is used to switch the user to the mobile version.";
-$l['gomobile_settings_homename'] = "This is the text that will appear in the footer of GoMobile in place of the home link. It is recommended that you keep this to as few charaters as possible.";
-$l['gomobile_settings_homelink'] = "Below is the link that appears in the footer of GoMobile.";
 
 $l['gomobile_ucp'] = "UCP";
 $l['gomobile_mcp'] = "MCP";

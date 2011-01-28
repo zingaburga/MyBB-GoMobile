@@ -35,9 +35,6 @@ if(!defined("IN_MYBB"))
 	die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.");
 }
 
-// Get our languages loaded
-global $lang;
-
 // Run only if the user isn't updating or installing
 // Page hook, for overriding the theme as best as we can
 $plugins->add_hook("global_start", "gomobile_forcetheme");
@@ -63,8 +60,6 @@ $plugins->add_hook("usercp_do_options_end", "gomobile_usercp_options");
 // Misc hooks
 $plugins->add_hook("misc_start", "gomobile_switch_version");
 
-$lang->load("gomobile");
-
 
 if(defined("IN_ADMINCP"))
 {
@@ -73,7 +68,8 @@ if(defined("IN_ADMINCP"))
 
 function gomobile_forcetheme()
 {
-	global $db, $mybb, $plugins;
+	global $db, $mybb, $plugins, $lang;
+	$lang->load("gomobile");
 
 	if($mybb->session->is_spider == false)
 	{

@@ -38,6 +38,8 @@ function gomobile_install()
 			);");
 			break;
 		case "sqlite":
+		case "sqlite2":
+		case "sqlite3":
 			$db->write_query("CREATE TABLE ".TABLE_PREFIX."gomobile (
 				gmtid INTEGER PRIMARY KEY,
 				regex varchar(120) NOT NULL default '')

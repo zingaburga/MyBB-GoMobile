@@ -267,13 +267,13 @@ function gomobile_install()
 
 function gomobile_is_installed()
 {
-    global $db;
+	global $db;
 
-    if($db->table_exists("gomobile"))
-    {
-        // The gomobile database table exists, so it must be installed.
-        return true;
-    }
+	if($db->table_exists("gomobile"))
+	{
+		// The gomobile database table exists, so it must be installed.
+		return true;
+	}
 }
 
 function gomobile_uninstall()
@@ -370,18 +370,18 @@ function gomobile_forcetheme()
 
 function gomobile_forcefooter()
 {
-    global $lang, $footer, $mybb, $navbits;
+	global $lang, $footer, $mybb, $navbits;
 
 	// Replace the footer, but only if the visitor isn't a bot
-    $footer = str_replace("<a href=\"<archive_url>\">".$lang->bottomlinks_litemode."</a>", "<a href=\"misc.php?action=switch_version&amp;my_post_key=".$GLOBALS['gmb_post_key']."\">".$lang->gomobile_mobile_version."</a>", $footer);
+	$footer = str_replace("<a href=\"<archive_url>\">".$lang->bottomlinks_litemode."</a>", "<a href=\"misc.php?action=switch_version&amp;my_post_key=".$GLOBALS['gmb_post_key']."\">".$lang->gomobile_mobile_version."</a>", $footer);
 
-    if($mybb->user['style'] == $mybb->settings['gomobile_theme_id'])
-    {
-        // Override default breadcrumb bbname (for mobile theme only)
-        $navbits = array();
-        $navbits[0]['name'] = $mybb->settings['gomobile_mobile_name'];
-        $navbits[0]['url'] = $mybb->settings['bburl']."/index.php";    
-    }
+	if($mybb->user['style'] == $mybb->settings['gomobile_theme_id'])
+	{
+		// Override default breadcrumb bbname (for mobile theme only)
+		$navbits = array();
+		$navbits[0]['name'] = $mybb->settings['gomobile_mobile_name'];
+		$navbits[0]['url'] = $mybb->settings['bburl']."/index.php";	
+	}
 } 
 
 function gomobile_forumdisplay()
@@ -403,9 +403,9 @@ function gomobile_showthread()
 	
 	// The jumper code
 	$pj_template = "<div class=\"float_left\" style=\"padding-top: 12px;\">
-        <a href=\"".get_thread_link($thread['tid'], 1)."\" class=\"pagination_a\">{$lang->gomobile_jump_fpost}</a>
-        <a href=\"".get_thread_link($thread['tid'], 0, 'lastpost')."\" class=\"pagination_a\">{$lang->gomobile_jump_lpost}</a>
-    </div>"; 
+		<a href=\"".get_thread_link($thread['tid'], 1)."\" class=\"pagination_a\">{$lang->gomobile_jump_fpost}</a>
+		<a href=\"".get_thread_link($thread['tid'], 0, 'lastpost')."\" class=\"pagination_a\">{$lang->gomobile_jump_lpost}</a>
+	</div>"; 
 	
 	// Figure out if we're going to display the first/last page jump
 	if($postcount > $perpage){
@@ -437,9 +437,9 @@ function gomobile_portal_pro()
 
 function gomobile_posts($p)
 {
-    global $mybb;
+	global $mybb;
 
-    $is_mobile = intval($mybb->input['mobile']);
+	$is_mobile = intval($mybb->input['mobile']);
 
 	// Was the post sent from GoMobile?
 	if($is_mobile != 1)
@@ -452,17 +452,17 @@ function gomobile_posts($p)
 	}
 
 	// If so, we're going to store it for future use
-    $p->post_insert_data['mobile'] = $is_mobile;
+	$p->post_insert_data['mobile'] = $is_mobile;
 
-    return $p;
+	return $p;
 } 
 
 function gomobile_threads($p)
 {
 	// Exact same as above, only for threads
-    global $mybb;
+	global $mybb;
 
-    $is_mobile = intval($mybb->input['mobile']);
+	$is_mobile = intval($mybb->input['mobile']);
 
 	if($is_mobile != 1)
 	{
@@ -473,9 +473,9 @@ function gomobile_threads($p)
 		$is_mobile = 1;
 	}
 
-    $p->post_insert_data['mobile'] = $is_mobile;
+	$p->post_insert_data['mobile'] = $is_mobile;
 
-    return $p;
+	return $p;
 } 
 
 function gomobile_adminAction(&$action)

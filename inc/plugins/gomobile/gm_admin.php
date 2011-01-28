@@ -31,20 +31,20 @@ function gomobile_install()
 	switch($mybb->config['database']['type'])
 	{
 		case "pgsql":
-			$db->query("CREATE TABLE ".TABLE_PREFIX."gomobile (
+			$db->write_query("CREATE TABLE ".TABLE_PREFIX."gomobile (
 				gmtid serial,
 				regex varchar(120) NOT NULL default '',
 				PRIMARY KEY (gmtid)
 			);");
 			break;
 		case "sqlite":
-			$db->query("CREATE TABLE ".TABLE_PREFIX."gomobile (
+			$db->write_query("CREATE TABLE ".TABLE_PREFIX."gomobile (
 				gmtid INTEGER PRIMARY KEY,
 				regex varchar(120) NOT NULL default '')
 			);");
 			break;
 		default:
-			$db->query("CREATE TABLE ".TABLE_PREFIX."gomobile (
+			$db->write_query("CREATE TABLE ".TABLE_PREFIX."gomobile (
 				gmtid int(10) unsigned NOT NULL auto_increment,
 				regex varchar(120) NOT NULL default '',
 				PRIMARY KEY(gmtid)
@@ -52,11 +52,11 @@ function gomobile_install()
 	}
 
 	// Add a column to the posts & threads tables for tracking mobile posts
-	$db->query("ALTER TABLE ".TABLE_PREFIX."posts ADD mobile int(1) NOT NULL default '0'");
-	$db->query("ALTER TABLE ".TABLE_PREFIX."threads ADD mobile int(1) NOT NULL default '0'");
+	$db->write_query("ALTER TABLE ".TABLE_PREFIX."posts ADD mobile int(1) NOT NULL default '0'");
+	$db->write_query("ALTER TABLE ".TABLE_PREFIX."threads ADD mobile int(1) NOT NULL default '0'");
 
 	// And another to the users table for options
-	$db->query("ALTER TABLE ".TABLE_PREFIX."users ADD usemobileversion int(1) NOT NULL default '1'");
+	$db->write_query("ALTER TABLE ".TABLE_PREFIX."users ADD usemobileversion int(1) NOT NULL default '1'");
 
 	// First, check that our theme doesn't already exist
 	$query = $db->simple_select("themes", "tid", "LOWER(name) LIKE '%gomobile 1.0%'");
@@ -218,9 +218,9 @@ function gomobile_uninstall()
 	$db->drop_table("gomobile");
 
 	// Clean up the users, posts & threads tables
-	$db->query("ALTER TABLE ".TABLE_PREFIX."posts DROP COLUMN mobile");
-	$db->query("ALTER TABLE ".TABLE_PREFIX."threads DROP COLUMN mobile");
-	$db->query("ALTER TABLE ".TABLE_PREFIX."users DROP COLUMN usemobileversion");
+	$db->write_query("ALTER TABLE ".TABLE_PREFIX."posts DROP COLUMN mobile");
+	$db->write_query("ALTER TABLE ".TABLE_PREFIX."threads DROP COLUMN mobile");
+	$db->write_query("ALTER TABLE ".TABLE_PREFIX."users DROP COLUMN usemobileversion");
 
 	// Can the template edits we made earlier
 	require_once MYBB_ROOT."inc/adminfunctions_templates.php";
@@ -228,13 +228,13 @@ function gomobile_uninstall()
 	find_replace_templatesets("postbit_posturl", '#'.preg_quote('<img src="{$mybb->settings[\'bburl\']}/images/mobile/posted_{$post[\'mobile\']}.png" alt="" width="{$post[\'mobile\']}8" height="{$post[\'mobile\']}8" title="Posted from GoMobile (when icon is displayed)" style="vertical-align: middle;" /> '.'').'#', '', 0);
 
 	// Lastly, remove the settings for GoMobile
-	$db->query("DELETE FROM ".TABLE_PREFIX."settinggroups WHERE name='gomobile'");
-	$db->query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_header_text'");
-	$db->query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_redirect_enabled'");
-	$db->query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_redirect_location'");
-	$db->query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_theme_id'");
-	$db->query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_homename'");
-	$db->query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_homelink'");
+	$db->write_query("DELETE FROM ".TABLE_PREFIX."settinggroups WHERE name='gomobile'");
+	$db->write_query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_header_text'");
+	$db->write_query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_redirect_enabled'");
+	$db->write_query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_redirect_location'");
+	$db->write_query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_theme_id'");
+	$db->write_query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_homename'");
+	$db->write_query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_homelink'");
 }
 
 function gomobile_adminAction(&$action)

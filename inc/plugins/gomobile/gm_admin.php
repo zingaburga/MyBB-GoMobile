@@ -235,12 +235,14 @@ function gomobile_uninstall()
 
 	// Lastly, remove the settings for GoMobile
 	$db->write_query("DELETE FROM ".TABLE_PREFIX."settinggroups WHERE name='gomobile'");
-	$db->write_query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_header_text'");
-	$db->write_query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_redirect_enabled'");
-	$db->write_query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_redirect_location'");
-	$db->write_query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_theme_id'");
-	$db->write_query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_homename'");
-	$db->write_query("DELETE FROM ".TABLE_PREFIX."settings WHERE name='gomobile_homelink'");
+	$db->write_query("DELETE FROM ".TABLE_PREFIX."settings WHERE name IN (
+		'gomobile_header_text',
+		'gomobile_redirect_enabled',
+		'gomobile_redirect_location',
+		'gomobile_theme_id',
+		'gomobile_homename',
+		'gomobile_homelink'
+	)");
 }
 
 function gomobile_adminAction(&$action)

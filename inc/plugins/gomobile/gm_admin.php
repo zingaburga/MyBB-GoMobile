@@ -7,6 +7,9 @@ $plugins->add_hook('admin_config_menu','gomobile_adminLink');
 $plugins->add_hook('admin_load','gomobile_admin');
 
 
+global $mybb;
+define("GOMOBILE_ACP_CONFIG_URL", "index.php?module=config" . ($mybb->version_code >= 1500 ? "-" : "/"));
+
 function gomobile_info()
 {
 	global $lang;
@@ -78,7 +81,7 @@ function gomobile_install()
 		if(!file_exists($theme))
 		{
 			flash_message("Upload the GoMobile Theme to the plugin directory (./inc/plugins/) before continuing.", "error");
-			admin_redirect("index.php?module=config/plugins");
+			admin_redirect(GOMOBILE_ACP_CONFIG_URL."plugins");
 		}
 
 		$contents = @file_get_contents($theme);
@@ -260,7 +263,7 @@ function gomobile_adminLink(&$sub)
 	$sub[$key] = array(
 		'id' => 'gomobile',
 		'title' => $lang->gomobile_sidemenu,
-		'link' => 'index.php?module=config/gomobile'
+		'link' => GOMOBILE_ACP_CONFIG_URL.'gomobile'
 	);
 }
 
@@ -274,7 +277,7 @@ function gomobile_admin()
 	}
 
 	$lang->load('gomobile');
-	$page->add_breadcrumb_item($lang->gomobile, 'index.php?module=config-gomobile');
+	$page->add_breadcrumb_item($lang->gomobile, GOMOBILE_ACP_CONFIG_URL.'gomobile');
 
 	if($mybb->input['action'] == 'edit')
 	{
@@ -282,7 +285,7 @@ function gomobile_admin()
 		if(!isset($mybb->input['gmtid']) || intval($mybb->input['gmtid']) == 0)
 		{
 			flash_message($lang->gomobile_noexist, 'error');
-			admin_redirect('index.php?module=config/gomobile');
+			admin_redirect(GOMOBILE_ACP_CONFIG_URL.'gomobile');
 		}
 		else
 		{
@@ -318,7 +321,7 @@ function gomobile_admin()
 				}
 
 				flash_message($lang->gomobile_saved, 'success');
-				admin_redirect('index.php?module=config/gomobile');
+				admin_redirect(GOMOBILE_ACP_CONFIG_URL.'gomobile');
 			}
 		}
 		else if($mybb->input['delete'])
@@ -326,7 +329,7 @@ function gomobile_admin()
 			// Delete the regex and return to the main menu
 			$db->delete_query("gomobile", "gmtid='{$gmtid}'");
 
-			admin_redirect('index.php?module=config/gomobile');
+			admin_redirect(GOMOBILE_ACP_CONFIG_URL.'gomobile');
 		}
 
 		// If there was a problem saving earlier,
@@ -364,7 +367,7 @@ function gomobile_admin()
 			}
 
 			// Create edit box
-			$form = new Form('index.php?module=config/gomobile&amp;action=edit&amp;gmtid=' . $gmtid, 'post');
+			$form = new Form(GOMOBILE_ACP_CONFIG_URL.'gomobile&amp;action=edit&amp;gmtid=' . $gmtid, 'post');
 			$form_container = new FormContainer($lang->gomobile_edit);
 
 			// Long and ugly.
@@ -395,7 +398,7 @@ function gomobile_admin()
 		{
 			// This happens if the user tried to edit a non-existant regex
 			flash_message($lang->gomobile_noexist, 'error');
-			admin_redirect('index.php?module=config/gomobile');
+			admin_redirect(GOMOBILE_ACP_CONFIG_URL.'gomobile');
 		}
 	}
 	else
@@ -418,8 +421,8 @@ function gomobile_admin()
 
 			// Show the edit and delete menu
 			$popup = new PopupMenu("gomobile_{$list['gmtid']}", $lang->options);
-			$popup->add_item($lang->gomobile_edit, "index.php?module=config/gomobile&amp;action=edit&amp;gmtid={$list['gmtid']}");
-			$popup->add_item($lang->gomobile_delete, "index.php?module=config/gomobile&amp;action=edit&amp;delete=true&amp;gmtid={$list['gmtid']}");
+			$popup->add_item($lang->gomobile_edit, GOMOBILE_ACP_CONFIG_URL."gomobile&amp;action=edit&amp;gmtid={$list['gmtid']}");
+			$popup->add_item($lang->gomobile_delete, GOMOBILE_ACP_CONFIG_URL."gomobile&amp;action=edit&amp;delete=true&amp;gmtid={$list['gmtid']}");
 			$table->construct_cell($popup->fetch(), array("class" => "align_center", "width" => 155));
 
 			// Done!
@@ -427,7 +430,7 @@ function gomobile_admin()
 		}
 
 		// list 'add new regex' link
-		$table->construct_cell("<strong><a href=\"index.php?module=config/gomobile&amp;action=edit&amp;gmtid=-1\">{$lang->gomobile_addnew}</a></strong>");
+		$table->construct_cell("<strong><a href=\"".GOMOBILE_ACP_CONFIG_URL."gomobile&amp;action=edit&amp;gmtid=-1\">{$lang->gomobile_addnew}</a></strong>");
 		$table->construct_cell('');
 		$table->construct_row();
 

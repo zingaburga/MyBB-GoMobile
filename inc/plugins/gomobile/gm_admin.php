@@ -282,30 +282,24 @@ function gomobile_admin()
 	if($mybb->input['action'] == 'edit')
 	{
 		// Adding or creating a regex...
-		if(!isset($mybb->input['gmtid']) || intval($mybb->input['gmtid']) == 0)
+		$gmtid = intval($mybb->input['gmtid']);
+		if(!isset($mybb->input['gmtid']) || $gmtid == 0)
 		{
 			flash_message($lang->gomobile_noexist, 'error');
 			admin_redirect(GOMOBILE_ACP_CONFIG_URL.'gomobile');
 		}
-		else
-		{
-			$gmtid = intval($mybb->input['gmtid']);
-		}
 
 		if($mybb->input['save'])
 		{
-			// User wants to save. Grab the values for later
-			$gomobile['regex'] = $mybb->input['regex'];
-
 			// Did they forget to fill in the regex?
-			if($gomobile['regex'] == '')
+			if($mybb->input['regex'] == '')
 			{
 				$error = $lang->gomobile_noregex;
 			}
 			else
 			{
 				// No? Let's save it then
-				$gomobile['regex'] = $db->escape_string($gomobile['regex']);
+				$gomobile = array('regex' => $db->escape_string($mybb->input['regex']));
 
 				// Did they create a new one?
 				if($gmtid == -1)
@@ -324,7 +318,7 @@ function gomobile_admin()
 				admin_redirect(GOMOBILE_ACP_CONFIG_URL.'gomobile');
 			}
 		}
-		else if($mybb->input['delete'])
+		elseif($mybb->input['delete'])
 		{
 			// Delete the regex and return to the main menu
 			$db->delete_query("gomobile", "gmtid='{$gmtid}'");

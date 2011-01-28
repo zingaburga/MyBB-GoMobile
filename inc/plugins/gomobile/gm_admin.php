@@ -68,7 +68,7 @@ function gomobile_install()
 	else
 	{
 		// Import the theme for our users
-		$theme = MYBB_ROOT."inc/plugins/gomobile_theme.xml";
+		$theme = MYBB_ROOT."inc/plugins/gomobile/gomobile_theme.xml";
 		if(!file_exists($theme))
 		{
 			flash_message("Upload the GoMobile Theme to the plugin directory (./inc/plugins/) before continuing.", "error");

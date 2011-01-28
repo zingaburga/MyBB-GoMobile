@@ -27,6 +27,7 @@ function gomobile_install()
 {
 	global $db, $mybb, $lang;
 
+	$tinyint = 'smallint';
 	// Install the right database table for our database type
 	switch($mybb->config['database']['type'])
 	{
@@ -51,14 +52,15 @@ function gomobile_install()
 				regex varchar(120) NOT NULL default '',
 				PRIMARY KEY(gmtid)
 			) TYPE=MyISAM;");
+			$tinyint = 'tinyint';
 	}
 
 	// Add a column to the posts & threads tables for tracking mobile posts
-	$db->write_query("ALTER TABLE ".TABLE_PREFIX."posts ADD mobile int(1) NOT NULL default '0'");
-	$db->write_query("ALTER TABLE ".TABLE_PREFIX."threads ADD mobile int(1) NOT NULL default '0'");
+	$db->write_query("ALTER TABLE ".TABLE_PREFIX."posts ADD mobile {$tinyint}(1) NOT NULL default '0'");
+	$db->write_query("ALTER TABLE ".TABLE_PREFIX."threads ADD mobile {$tinyint}(1) NOT NULL default '0'");
 
 	// And another to the users table for options
-	$db->write_query("ALTER TABLE ".TABLE_PREFIX."users ADD usemobileversion int(1) NOT NULL default '1'");
+	$db->write_query("ALTER TABLE ".TABLE_PREFIX."users ADD usemobileversion {$tinyint}(1) NOT NULL default '1'");
 
 	// First, check that our theme doesn't already exist
 	$query = $db->simple_select("themes", "tid", "LOWER(name) LIKE '%gomobile 1.0%'");

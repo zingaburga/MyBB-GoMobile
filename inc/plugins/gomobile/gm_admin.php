@@ -10,6 +10,10 @@ $plugins->add_hook('admin_load','gomobile_admin');
 global $mybb;
 define("GOMOBILE_ACP_CONFIG_URL", "index.php?module=config" . ($mybb->version_code >= 1500 ? "-" : "/"));
 
+
+// we'll stick the template modification we do in a define for convenience purposes...
+define('GOMOBILE_TPL_MOD', '<img src="{$mybb->settings[\'bburl\']}/images/mobile/posted_{$post[\'mobile\']}.png" alt="" width="{$post[\'mobile\']}8" height="{$post[\'mobile\']}8" title="Posted from GoMobile (when icon is displayed)" style="vertical-align: middle;" /> ');
+
 function gomobile_info()
 {
 	global $lang;
@@ -126,7 +130,6 @@ function gomobile_install()
 	foreach($data_array as $data)
 	{
 		$gomobile = array(
-			"gmtid" => -1,
 			"regex" => $db->escape_string($data)
 		);
 
@@ -136,7 +139,7 @@ function gomobile_install()
 	// Edit existing templates (shows when posts are from GoMobile)
 	require_once MYBB_ROOT."inc/adminfunctions_templates.php";
 
-	find_replace_templatesets("postbit_posturl", '#'.preg_quote('<span').'#', '<img src="{\$mybb->settings[\'bburl\']}/images/mobile/posted_{\$post[\'mobile\']}.png" alt="" width="{\$post[\'mobile\']}8" height="{\$post[\'mobile\']}8" title="Posted from GoMobile (when icon is displayed)" style="vertical-align: middle;" /> '.'<span');
+	find_replace_templatesets("postbit_posturl", '#\\<span.*?\\{\\$lang-\\>postbit_post\\}#', str_replace('$', '\\$', GOMOBILE_TPL_MOD).' $0');
 
 	// Get our settings ready
 	$setting_group = array
@@ -233,7 +236,7 @@ function gomobile_uninstall()
 	// Can the template edits we made earlier
 	require_once MYBB_ROOT."inc/adminfunctions_templates.php";
 
-	find_replace_templatesets("postbit_posturl", '#'.preg_quote('<img src="{$mybb->settings[\'bburl\']}/images/mobile/posted_{$post[\'mobile\']}.png" alt="" width="{$post[\'mobile\']}8" height="{$post[\'mobile\']}8" title="Posted from GoMobile (when icon is displayed)" style="vertical-align: middle;" /> '.'').'#', '', 0);
+	find_replace_templatesets("postbit_posturl", '#'.preg_quote(GOMOBILE_TPL_MOD).'#', '', 0);
 
 	// Lastly, remove the settings for GoMobile
 	$db->write_query("DELETE FROM ".TABLE_PREFIX."settinggroups WHERE name='gomobile'");

@@ -148,6 +148,9 @@ function gomobile_forcefooter()
 	}
 } 
 
+// TODO: well, this could be deleted as we can use {$thread['closed']} directly in
+//       templates; however if this change be made, it would require some upgrade to
+//       existing themes, so I'll refrain from doing this
 function gomobile_forumdisplay()
 {
 	global $mybb, $thread, $tstatus;
@@ -198,10 +201,6 @@ function gomobile_posts($p)
 	if($is_mobile != 1)
 	{
 		$is_mobile = 0;
-	}
-	else
-	{
-		$is_mobile = 1;
 	}
 
 	// If so, we're going to store it for future use

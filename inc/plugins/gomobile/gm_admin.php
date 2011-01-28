@@ -63,7 +63,7 @@ function gomobile_install()
 	$db->write_query("ALTER TABLE ".TABLE_PREFIX."users ADD usemobileversion {$tinyint}(1) NOT NULL default '1'");
 
 	// First, check that our theme doesn't already exist
-	$query = $db->simple_select("themes", "tid", "LOWER(name) LIKE '%gomobile 1.0%'");
+	$query = $db->simple_select("themes", "tid", "LOWER(name) LIKE 'gomobile 1.0%'");
 	if($db->num_rows($query))
 	{
 		// We already have the GoMobile theme installed

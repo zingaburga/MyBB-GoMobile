@@ -41,7 +41,7 @@ $plugins->add_hook("global_start", "gomobile_forcetheme");
 
 // New Reply & New Thread hooks, for determining whether or not the post is from a mobile
 $plugins->add_hook("datahandler_post_insert_post", "gomobile_posts");
-$plugins->add_hook("datahandler_post_insert_thread_post", "gomobile_threads");
+$plugins->add_hook("datahandler_post_insert_thread_post", "gomobile_posts");
 
 // Portal hooks
 $plugins->add_hook("portal_start", "gomobile_portal_default");
@@ -220,28 +220,6 @@ function gomobile_posts($p)
 
 	return $p;
 } 
-
-function gomobile_threads($p)
-{
-	// Exact same as above, only for threads
-	global $mybb;
-
-	$is_mobile = intval($mybb->input['mobile']);
-
-	if($is_mobile != 1)
-	{
-		$is_mobile = 0;
-	}
-	else
-	{
-		$is_mobile = 1;
-	}
-
-	$p->post_insert_data['mobile'] = $is_mobile;
-
-	return $p;
-} 
-
 
 function gomobile_usercp_options()
 {

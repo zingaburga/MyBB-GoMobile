@@ -31,6 +31,8 @@
  inc/languages/xxx/gomobile.lang.php: The various strings shown to the user
 */
 
+$l['gomobile_mobile_version'] = "Mobile Version";
+
 
 $l['gomobile_ucp'] = "UCP";
 $l['gomobile_mcp'] = "MCP";

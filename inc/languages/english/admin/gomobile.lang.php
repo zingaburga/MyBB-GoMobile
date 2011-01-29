@@ -28,7 +28,7 @@
  CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  
- inc/languages/xxx/gomobile.lang.php: The various strings shown to the user
+ inc/languages/xxx/admin/gomobile.lang.php: The various strings shown to the user
 */
 
 $l['gomobile'] = "MyBB GoMobile";
@@ -43,7 +43,6 @@ $l['gomobile_noexist'] = "That regex doesn't exist!";
 $l['gomobile_regex_desc'] = "UA Theme matches this to the user's agent string to determine which theme to use.";
 $l['gomobile_noregex'] = "No regex to match. Please input a regex so GoMobile knows what to do.";
 $l['gomobile_saved'] = "Regex saved!";
-$l['gomobile_mobile_version'] = "Mobile Version";
 
 // Edit these before installing if you are translating
 $l['gomobile_settings_mobile_name'] = "Use this setting to shorten both your header and breadcrumb (navigation) text. You may use full HTML formatting.";

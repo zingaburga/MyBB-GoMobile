@@ -1911,7 +1911,7 @@ a.threadlist_closed {
 	<div class="post_body">
 		<div class="post_content">{$message}</div>
 		{$post['attachments']}
-		<div class="post_manage"><span style="float: left;">{$lang->posted_by} {$profilelink}</span><a href="{$mybb->settings['bburl']}/sendthread.php?tid={$announcement['tid']}"><img src="{$theme['imgdir']}/send.gif" alt="{$lang->send_to_friend}" title="{$lang->send_to_friend}" /></a></div>
+		<div class="post_manage"><span style="float: left;">{$lang->posted_by} {$profilelink}</span><a href="{$mybb->settings['bburl']}/sendthread.php?tid={$announcement['tid']}"><img src="{$theme['imgdir']}/send.png" alt="{$lang->send_to_friend}" title="{$lang->send_to_friend}" /></a></div>
 	</div>
 </div>]]></template>
 		<template name="modcp_nav" version="1601"><![CDATA[<table border="0" cellspacing="0" cellpadding="0" class="modcp_navigation">

@@ -3,6 +3,7 @@
 global $mybb;
 define("GOMOBILE_ACP_CONFIG_URL", "index.php?module=config" . ($mybb->version_code >= 1500 ? "-" : "/"));
 
+$plugins->add_hook("admin_config_settings_begin", "gomobile_admin_settings");
 
 // we'll stick the template modification we do in a define for convenience purposes...
 define('GOMOBILE_TPL_MOD', '<img src="{$mybb->settings[\'bburl\']}/images/mobile/posted_{$post[\'mobile\']}.png" alt="" width="{$post[\'mobile\']}8" height="{$post[\'mobile\']}8" title="Posted from GoMobile (when icon is displayed)" style="vertical-align: middle;" /> ');
@@ -167,3 +168,9 @@ function gomobile_uninstall()
 	// do we remove the theme too?
 }
 
+function gomobile_admin_settings()
+{
+	global $lang;
+	// this allows dynamic translations
+	$lang->load("gomobile");
+}

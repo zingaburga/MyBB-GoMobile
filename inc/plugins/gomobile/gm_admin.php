@@ -1,8 +1,5 @@
 <?php
 
-global $mybb;
-define("GOMOBILE_ACP_CONFIG_URL", "index.php?module=config" . ($mybb->version_code >= 1500 ? "-" : "/"));
-
 $plugins->add_hook("admin_config_settings_begin", "gomobile_admin_settings");
 
 // we'll stick the template modification we do in a define for convenience purposes...
@@ -51,7 +48,7 @@ function gomobile_install()
 		if(!file_exists($theme))
 		{
 			flash_message("Upload the GoMobile Theme to the plugin directory (./inc/plugins/) before continuing.", "error");
-			admin_redirect(GOMOBILE_ACP_CONFIG_URL."plugins");
+			admin_redirect("index.php?module=config".($mybb->version_code >= 1500 ? "-" : "/")."plugins");
 		}
 
 		$contents = @file_get_contents($theme);

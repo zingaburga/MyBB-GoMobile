@@ -69,11 +69,6 @@ function gomobile_install()
 		}
 	}
 
-	// Edit existing templates (shows when posts are from GoMobile)
-	require_once MYBB_ROOT."inc/adminfunctions_templates.php";
-
-	find_replace_templatesets("postbit_posturl", '#\\<span.*?\\{\\$lang-\\>postbit_post\\}#', str_replace('$', '\\$', GOMOBILE_TPL_MOD).' $0');
-
 	// Get our settings ready
 	$setting_group = array
 	(
@@ -83,7 +78,6 @@ function gomobile_install()
 		"disporder" => "1",
 		"isdefault" => "0",
 	);
-
 	$gid = $db->insert_query("settinggroups", $setting_group);
 
 	$disporder = 0;
@@ -94,7 +88,8 @@ function gomobile_install()
 		"theme_id"          => array("text", $theme),
 		"homename"          => array("text", $mybb->settings['homename']),
 		"homelink"          => array("text", $mybb->settings['homeurl']),
-		"ua_list"           => array("textarea", "/ip[ho](.+?)mobile(.+?)safari/i
+		"ua_list"           => array("textarea",
+"/ip[ho](.+?)mobile(.+?)safari/i
 /mobile/i
 /Android(.+?)/i
 /Opera Mini(.+?)/i
@@ -134,6 +129,19 @@ function gomobile_is_installed()
 	return $db->table_exists("gomobile");
 }
 
+function gomobile_activate()
+{
+	// Edit existing templates (shows when posts are from GoMobile)
+	require_once MYBB_ROOT."inc/adminfunctions_templates.php";
+	find_replace_templatesets("postbit_posturl", '#\\<span.*?\\{\\$lang-\\>postbit_post\\}#', str_replace('$', '\\$', GOMOBILE_TPL_MOD).' $0');
+}
+function gomobile_deactivate()
+{
+	// Can the template edits we made earlier
+	require_once MYBB_ROOT."inc/adminfunctions_templates.php";
+	find_replace_templatesets("postbit_posturl", '#'.preg_quote(GOMOBILE_TPL_MOD).'#', '', 0);
+}
+
 function gomobile_uninstall()
 {
 	global $db;
@@ -142,11 +150,6 @@ function gomobile_uninstall()
 	$db->write_query("ALTER TABLE ".TABLE_PREFIX."posts DROP COLUMN mobile");
 	$db->write_query("ALTER TABLE ".TABLE_PREFIX."threads DROP COLUMN mobile");
 	$db->write_query("ALTER TABLE ".TABLE_PREFIX."users DROP COLUMN usemobileversion");
-
-	// Can the template edits we made earlier
-	require_once MYBB_ROOT."inc/adminfunctions_templates.php";
-
-	find_replace_templatesets("postbit_posturl", '#'.preg_quote(GOMOBILE_TPL_MOD).'#', '', 0);
 
 	// Lastly, remove the settings for GoMobile
 	$db->write_query("DELETE FROM ".TABLE_PREFIX."settinggroups WHERE name='gomobile'");
@@ -159,5 +162,6 @@ function gomobile_uninstall()
 		'gomobile_homelink',
 		'gomobile_ua_list'
 	)");
+	rebuild_settings();
 }
 

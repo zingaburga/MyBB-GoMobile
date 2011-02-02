@@ -75,25 +75,19 @@ function gomobile_forcetheme()
 	{
 		// Force some changes to our footer but only if we're not a bot
 		$GLOBALS['gmb_orig_style'] = intval($mybb->user['style']);
-		$GLOBALS['gmb_post_key'] = md5($mybb->post_code);
+		$GLOBALS['gmb_post_key'] = $mybb->post_code;
 
 		$plugins->add_hook("global_end", "gomobile_forcefooter");
 	}
 
 	// Has the user chosen to disable GoMobile completely?
-	if(isset($mybb->user['usemobileversion']) && $mybb->user['usemobileversion'] == 0 && $mybb->user['uid'] && !$mybb->cookies['use_dmv'])
-	{
-		return;
-	}
-
-	// Has the user temporarily disabled GoMobile via cookies?
-	if($mybb->cookies['no_use_dmv'] == "1")
+	if($mybb->cookies['use_dmv'] == "2" || (isset($mybb->user['usemobileversion']) && $mybb->user['usemobileversion'] == 0 && $mybb->user['uid']))
 	{
 		return;
 	}
 	
 	$use_mobile = false;
-	if($mybb->cookies['use_dmv'] == 1)
+	if($mybb->cookies['use_dmv'] == "1")
 	{
 		$use_mobile = true;
 	}
@@ -280,22 +274,15 @@ function gomobile_switch_version()
 		$url = htmlentities($_SERVER['HTTP_REFERER']);
 	}
 
-	if(md5($mybb->post_code) != $mybb->input['my_post_key'])
+	// no verify_post_check($mybb->input['my_post_key']); ?
+	if($mybb->post_code != $mybb->input['my_post_key'])
 	{
 		redirect($url, $lang->invalid_post_code);
 	}
 
-	if($mybb->input['do'] == "full")
-	{
-		my_unsetcookie("use_dmv");
-		my_setcookie("no_use_dmv", 1, -1);
-	}
-	else
-	{
-		// Assume we're wanting to switch to the mobile version
-		my_unsetcookie("no_use_dmv");
-		my_setcookie("use_dmv", 1, -1);
-	}
+	// state of use_dmv cookie: 1=force on, 2=force off, else=default
+	// Assume we're wanting to switch to the mobile version if 'full' isn't set
+	my_setcookie("use_dmv", ($mybb->input['do'] == "full" ? "2" : "1"), -1);
 
 	$lang->load("gomobile");
 	redirect($url, $lang->gomobile_switched_version);

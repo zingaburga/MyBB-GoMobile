@@ -88,13 +88,13 @@ function gomobile_install()
 
 	$disporder = 0;
 	foreach(array(
-		"mobile_name" => (string)$mybb->settings['bbname'],
-		"redirect_enabled" => 0,
-		"redirect_location" => "index.php",
-		"theme_id" => (string)$theme,
-		"homename" => (string)$mybb->settings['homename'],
-		"homelink" => (string)$mybb->settings['homeurl'],
-		"ua_list" => "/ip[ho](.+?)mobile(.+?)safari/i
+		"mobile_name"       => array("text", $mybb->settings['bbname']),
+		"redirect_enabled"  => array("yesno", 0),
+		"redirect_location" => array("text", "index.php"),
+		"theme_id"          => array("text", $theme),
+		"homename"          => array("text", $mybb->settings['homename']),
+		"homelink"          => array("text", $mybb->settings['homeurl']),
+		"ua_list"           => array("textarea", "/ip[ho](.+?)mobile(.+?)safari/i
 /mobile/i
 /Android(.+?)/i
 /Opera Mini(.+?)/i
@@ -110,16 +110,16 @@ function gomobile_install()
 /AvantGo(.+?)/i
 /DoCoMo(.+?)/i
 /Pre\/(.+?)/i
-/UP.Browser(.+?)/i"
-	) as $name => $value) {
+/UP.Browser(.+?)/i")
+	) as $name => $opts) {
 		$lang_title = "setting_gomobile_{$name}";
 		$lang_desc = "setting_gomobile_{$name}_desc";
 		$db->insert_query("settings", array(
 			"name"        => "gomobile_$name",
 			"title"       => $db->escape_string($lang->$lang_title),
 			"description" => $db->escape_string($lang->$lang_desc),
-			"optionscode" => (is_string($value) ? "text" : "yesno"),
-			"value"       => $db->escape_string($value),
+			"optionscode" => $opts[0],
+			"value"       => $db->escape_string($opts[1]),
 			"disporder"   => ++$disporder,
 			"gid"         => $gid,
 		));

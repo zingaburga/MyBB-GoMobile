@@ -163,5 +163,7 @@ function gomobile_uninstall()
 		'gomobile_ua_list'
 	)");
 	rebuild_settings();
+	
+	// do we remove the theme too?
 }
 

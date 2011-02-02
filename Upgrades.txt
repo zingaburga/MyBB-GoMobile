@@ -1,0 +1,5 @@
+Some changes made by me (zingaburga) make it not possible to directly use this newer version of GoMobile without some sort of upgrade process.
+As the original GoMobile was in beta stage, I will not bother providing an upgrade script to migrate changes - rather, I will recommend you to uninstall the plugin (including removing the theme) before installing this version.
+
+However, if you wish to try to manually migrate changes over, here's a list of upgrades required:
+- 'gomobile' DB table has been removed and replaced with a simple textarea setting - you will need to migrate your entries over to this setting

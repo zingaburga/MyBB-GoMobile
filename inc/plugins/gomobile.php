@@ -83,52 +83,71 @@ function gomobile_forcetheme()
 	// Has the user chosen to disable GoMobile completely?
 	if(isset($mybb->user['usemobileversion']) && $mybb->user['usemobileversion'] == 0 && $mybb->user['uid'] && !$mybb->cookies['use_dmv'])
 	{
-		return false;
+		return;
 	}
 
 	// Has the user temporarily disabled GoMobile via cookies?
 	if($mybb->cookies['no_use_dmv'] == "1")
 	{
-		return false;
+		return;
 	}
+	
+	$use_mobile = false;
+	if($mybb->cookies['use_dmv'] == 1)
+	{
+		$use_mobile = true;
+	}
+	else
+	{
+		// Fetch the list of User Agent strings
+		foreach(explode("\n", str_replace("\r", "", $mybb->settings['gomobile_ua_list'])) as $test_regex)
+		{
+			$test_regex = trim($test_regex);
+			// Switch to GoMobile if the UA matches our list
+			if(preg_match($test_regex, $_SERVER['HTTP_USER_AGENT']) != 0)
+			{
+				$use_mobile = true;
+			}
+		}
+		
+		// Terminate early if not using theme
+		if(!$use_mobile)
+		{
+			return;
+		}
+	}
+	
 	
 	// Fetch the theme permissions from the database
-	$tquery = $db->simple_select("themes", "*", "tid like '{$mybb->settings['gomobile_theme_id']}'");
+	$tquery = $db->simple_select("themes", "allowedgroups", "tid = ".intval($mybb->settings['gomobile_theme_id']));
 	$tperms = $db->fetch_field($tquery, "allowedgroups");
 	if($tperms != "all") {
-		$canuse = explode(",", $tperms);
-	}
-	
-	// Also explode our user's additional groups
-	if($mybb->user['additionalgroups']) {
-		$userag = explode(",", $mybb->user['additionalgroups']);
-	}
-	
-	// If the user doesn't have permission to use the theme...
-	if($tperms != "all") {
-		if(!in_array($mybb->user['usergroup'], $canuse) && !in_array($userag, $canuse)) {
-			return false;
+		if(!$tperms) {
+			return;
 		}
-	}
-
-	// Fetch the list of User Agent strings
-	$switch = false;
-	foreach(explode("\n", str_replace("\r", "", $mybb->settings['gomobile_ua_list'])) as $test_regex)
-	{
-		$test_regex = trim($test_regex);
-		// Switch to GoMobile if the UA matches our list
-		if(preg_match($test_regex, $_SERVER['HTTP_USER_AGENT']) != 0)
+		if(strpos(','.$tperms.',', ','.$mybb->user['usergroup'].',') === false)
 		{
-			$switch = true;
-			$mybb->user['style'] = $mybb->settings['gomobile_theme_id'];
+			// current usergroup not listed - we need to check additional groups
+			if(!$mybb->user['additionalgroups']) {
+				return;
+			}
+			$canuse = array_flip(explode(",", $tperms));
+			$allowed = false;
+			foreach(explode(",", $mybb->user['additionalgroups']) as $gid)
+			{
+				if(isset($canuse[$gid]))
+				{
+					$allowed = true;
+					break;
+				}
+			}
+			if(!$allowed) {
+				return;
+			}
 		}
 	}
-
-	// Have we got this far without catching somewhere? Have we enabled mobile version?
-	if($mybb->cookies['use_dmv'] == 1 && $switch == false)
-	{
-		$mybb->user['style'] = $mybb->settings['gomobile_theme_id'];
-	}
+	
+	$mybb->user['style'] = intval($mybb->settings['gomobile_theme_id']);
 }
 
 function gomobile_forcefooter()

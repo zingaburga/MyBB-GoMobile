@@ -145,8 +145,8 @@ function gomobile_install()
 	$setting_group = array
 	(
 		"name" => "gomobile",
-		"title" => "GoMobile Settings",
-		"description" => "Configures options for MyBB GoMobile.",
+		"title" => $db->escape_string($lang->setting_group_gomobile),
+		"description" => $db->escape_string($lang->setting_group_gomobile_desc),
 		"disporder" => "1",
 		"isdefault" => "0",
 	);

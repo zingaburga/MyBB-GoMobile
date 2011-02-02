@@ -45,6 +45,9 @@ $l['gomobile_noregex'] = "Please enter a regex.";
 $l['gomobile_saved'] = "Regex successfully added!";
 
 // Setting Strings
+$l['setting_group_gomobile'] = "GoMobile Settings";
+$l['setting_group_gomobile_desc'] = "Configures options for MyBB GoMobile.";
+
 $l['setting_gomobile_mobile_name'] = "Mobile Board Name";
 $l['setting_gomobile_mobile_name_desc'] = "Use this setting to shorten both your header and breadcrumb (navigation) text. You may use full HTML formatting.";
 $l['setting_gomobile_redirect_enabled'] = "Enable Portal Redirect?";

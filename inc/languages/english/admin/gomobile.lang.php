@@ -32,17 +32,7 @@
 */
 
 $l['gomobile'] = "MyBB GoMobile";
-$l['gomobile_sidemenu'] = "GoMobile Regex List";
 $l['gomobile_desc'] = "MyBB GoMobile's accompanying plugin, forces user agents matching a regex to use a certain theme.";
-$l['gomobile_regex'] = "Regular Expression";
-$l['gomobile_addnew'] = "Add New Regex";
-$l['gomobile_edit'] = "Edit Regex";
-$l['gomobile_save'] = "Save Regex";
-$l['gomobile_delete'] = "Delete Regex";
-$l['gomobile_noexist'] = "That regex doesn't exist!";
-$l['gomobile_regex_desc'] = "Enter the regex that GoMobile should send to the mobile theme.";
-$l['gomobile_noregex'] = "Please enter a regex.";
-$l['gomobile_saved'] = "Regex successfully added!";
 
 // Setting Strings
 $l['setting_group_gomobile'] = "GoMobile Settings";
@@ -60,3 +50,5 @@ $l['setting_gomobile_homename'] = "Home Name";
 $l['setting_gomobile_homename_desc'] = "This is the text that will appear in the footer of GoMobile in place of the home link. It is recommended that you keep this to as few charaters as possible.";
 $l['setting_gomobile_homelink'] = "Home Link";
 $l['setting_gomobile_homelink_desc'] = "Below is the link that appears in the footer of GoMobile.";
+$l['setting_gomobile_ua_list'] = "User-Agent List";
+$l['setting_gomobile_ua_list_desc'] = "Specify a list of regular expressions (matched by <a href=\"http://php.net/manual/en/function.preg-match.php\">preg_match</a>) which will be matched against the User-Agent sent by the browser to determine if the user is using a mobile browser.";

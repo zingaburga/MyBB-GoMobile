@@ -112,13 +112,12 @@ function gomobile_forcetheme()
 	}
 
 	// Fetch the list of User Agent strings
-	$query = $db->simple_select("gomobile", "regex");
-
 	$switch = false;
-	while($test = $db->fetch_array($query))
+	foreach(explode("\n", str_replace("\r", "", $mybb->settings['gomobile_ua_list'])) as $test_regex)
 	{
+		$test_regex = trim($test_regex);
 		// Switch to GoMobile if the UA matches our list
-		if(preg_match($test['regex'], $_SERVER['HTTP_USER_AGENT']) != 0)
+		if(preg_match($test_regex, $_SERVER['HTTP_USER_AGENT']) != 0)
 		{
 			$switch = true;
 			$mybb->user['style'] = $mybb->settings['gomobile_theme_id'];

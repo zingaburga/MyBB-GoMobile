@@ -153,58 +153,26 @@ function gomobile_install()
 
 	$gid = $db->insert_query("settinggroups", $setting_group);
 
-	$settings = array(
-		"gomobile_mobile_name" => array(
-			"title"			=> $lang->gomobile_settings_mobile_name_title,
-			"description"	=> $lang->gomobile_settings_mobile_name,
-			"optionscode"	=> "text",
-			"value"			=> $mybb->settings['bbname'],
-			"disporder"		=> "1"
-		),
-		"gomobile_redirect_enabled" => array(
-			"title"			=> $lang->gomobile_settings_redirect_enabled_title,
-			"description"	=> $lang->gomobile_settings_redirect_enabled,
-			"optionscode"	=> "yesno",
-			"value"			=> "0",
-			"disporder"		=> "2",
-		),
-		"gomobile_redirect_location" => array(
-			"title"			=> $lang->gomobile_settings_redirect_location_title,
-			"description"	=> $lang->gomobile_settings_redirect_location,
-			"optionscode"	=> "text",
-			"value"			=> "index.php",
-			"disporder"		=> "3"
-		),
-		"gomobile_theme_id" => array(
-			"title"			=> $lang->gomobile_settings_theme_id_title,
-			"description"	=> $lang->gomobile_settings_theme_id,
-			"optionscode"	=> "text",
-			"value"			=> $theme,
-			"disporder"		=> "4"
-		),
-		"gomobile_homename" => array(
-			"title"			=> $lang->gomobile_settings_homename_title,
-			"description"	=> $lang->gomobile_settings_homename,
-			"optionscode"	=> "text",
-			"value"			=> $mybb->settings['homename'],
-			"disporder"		=> "5"
-		),
-		"gomobile_homelink" => array(
-			"title"			=> $lang->gomobile_settings_homelink_title,
-			"description"	=> $lang->gomobile_settings_homelink,
-			"optionscode"	=> "text",
-			"value"			=> $mybb->settings['homeurl'],
-			"disporder"		=> "6"
-		)
-	);
-
-	// Insert the settings listed above
-	foreach($settings as $name => $setting)
-	{
-		$setting['gid'] = $gid;
-		$setting['name'] = $name;
-
-		$db->insert_query("settings", $setting);
+	$disporder = 0;
+	foreach(array(
+		"mobile_name" => (string)$mybb->settings['bbname'],
+		"redirect_enabled" => 0,
+		"redirect_location" => "index.php",
+		"theme_id" => (string)$theme,
+		"homename" => (string)$mybb->settings['homename'],
+		"homelink" => (string)$mybb->settings['homeurl'],
+	) as $name => $value) {
+		$lang_title = "gomobile_settings_{$name}_title";
+		$lang_desc = "gomobile_settings_{$name}";
+		$db->insert_query("settings", array(
+			"name"        => $name,
+			"title"       => $db->escape_string($lang->$lang_title),
+			"description" => $db->escape_string($lang->$lang_desc),
+			"optionscode" => (is_string($value) ? "text" : "yesno"),
+			"value"       => $db->escape_string($value),
+			"disporder"   => ++$disporder,
+			"gid"         => $gid,
+		));
 	}
 
 	rebuild_settings();

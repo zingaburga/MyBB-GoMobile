@@ -162,10 +162,10 @@ function gomobile_install()
 		"homename" => (string)$mybb->settings['homename'],
 		"homelink" => (string)$mybb->settings['homeurl'],
 	) as $name => $value) {
-		$lang_title = "gomobile_settings_{$name}_title";
-		$lang_desc = "gomobile_settings_{$name}";
+		$lang_title = "setting_gomobile_{$name}";
+		$lang_desc = "setting_gomobile_{$name}_desc";
 		$db->insert_query("settings", array(
-			"name"        => $name,
+			"name"        => "gomobile_$name",
 			"title"       => $db->escape_string($lang->$lang_title),
 			"description" => $db->escape_string($lang->$lang_desc),
 			"optionscode" => (is_string($value) ? "text" : "yesno"),

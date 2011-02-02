@@ -47,6 +47,7 @@ $l['gomobile_post_quote'] = "Quote";
 $l['gomobile_post_warn'] = "Warn";
 $l['gomobile_post_pm'] = "PM";
 $l['gomobile_page'] = "Page:";
+$l['gomobile_of'] = "of";
 $l['gomobile_copyrights'] = "Powered by <a href='http://mybb.com' target='_blank'>MyBB</a>, mobile version by <a href='http://mybbgm.com' target='_blank'>MyBB GoMobile</a>.";
 $l['gomobile_showsig'] = "Display your Signature?";
 $l['gomobile_disablesmilies'] = "Disable smilies in this message?";

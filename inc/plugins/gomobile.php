@@ -75,7 +75,6 @@ function gomobile_forcetheme()
 	{
 		// Force some changes to our footer but only if we're not a bot
 		$GLOBALS['gmb_orig_style'] = intval($mybb->user['style']);
-		$GLOBALS['gmb_post_key'] = $mybb->post_code;
 
 		$plugins->add_hook("global_end", "gomobile_forcefooter");
 	}
@@ -149,7 +148,7 @@ function gomobile_forcefooter()
 	global $lang, $footer, $mybb, $navbits;
 
 	// Replace the footer, but only if the visitor isn't a bot
-	$footer = str_replace("<a href=\"<archive_url>\">".$lang->bottomlinks_litemode."</a>", "<a href=\"misc.php?action=switch_version&amp;my_post_key=".$GLOBALS['gmb_post_key']."\">".$lang->gomobile_mobile_version."</a>", $footer);
+	$footer = str_replace("<a href=\"<archive_url>\">".$lang->bottomlinks_litemode."</a>", "<a href=\"misc.php?action=switch_version&amp;my_post_key=".$mybb->post_code."\">".$lang->gomobile_mobile_version."</a>", $footer);
 
 	if($mybb->user['style'] == $mybb->settings['gomobile_theme_id'])
 	{
@@ -265,7 +264,7 @@ function gomobile_switch_version()
 
 	if($mybb->input['action'] != "switch_version")
 	{
-		return false;
+		return;
 	}
 
 	$url = "index.php";

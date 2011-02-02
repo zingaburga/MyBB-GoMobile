@@ -2733,7 +2733,7 @@ a.threadlist_closed {
 			<div id="copyright">
 				<!-- Do not remove. -->
 					{$lang->gomobile_copyrights}
-					<br /><a href="misc.php?action=switch_version&amp;do=full&amp;my_post_key={$GLOBALS['gmb_post_key']}">Switch to Full Version</a>
+					<br /><a href="misc.php?action=switch_version&amp;do=full&amp;my_post_key={$mybb->post_code}">Switch to Full Version</a>
 					{$task_image}
 					{$auto_dst_detection}
 				<!-- End Do not removes. -->

@@ -155,42 +155,42 @@ function gomobile_install()
 
 	$settings = array(
 		"gomobile_mobile_name" => array(
-			"title"			=> "Mobile Board Name",
+			"title"			=> $lang->gomobile_settings_mobile_name_title,
 			"description"	=> $lang->gomobile_settings_mobile_name,
 			"optionscode"	=> "text",
 			"value"			=> $mybb->settings['bbname'],
 			"disporder"		=> "1"
 		),
 		"gomobile_redirect_enabled" => array(
-			"title"			=> "Enable Redirect?",
+			"title"			=> $lang->gomobile_settings_redirect_enabled_title,
 			"description"	=> $lang->gomobile_settings_redirect_enabled,
 			"optionscode"	=> "yesno",
 			"value"			=> "0",
 			"disporder"		=> "2",
 		),
 		"gomobile_redirect_location" => array(
-			"title"			=> "Redirect where?",
+			"title"			=> $lang->gomobile_settings_redirect_location_title,
 			"description"	=> $lang->gomobile_settings_redirect_location,
 			"optionscode"	=> "text",
 			"value"			=> "index.php",
 			"disporder"		=> "3"
 		),
 		"gomobile_theme_id" => array(
-			"title"			=> "Theme ID",
+			"title"			=> $lang->gomobile_settings_theme_id_title,
 			"description"	=> $lang->gomobile_settings_theme_id,
 			"optionscode"	=> "text",
 			"value"			=> $theme,
 			"disporder"		=> "4"
 		),
 		"gomobile_homename" => array(
-			"title"			=> "Home Name",
+			"title"			=> $lang->gomobile_settings_homename_title,
 			"description"	=> $lang->gomobile_settings_homename,
 			"optionscode"	=> "text",
 			"value"			=> $mybb->settings['homename'],
 			"disporder"		=> "5"
 		),
 		"gomobile_homelink" => array(
-			"title"			=> "Home Link",
+			"title"			=> $lang->gomobile_settings_homelink_title,
 			"description"	=> $lang->gomobile_settings_homelink,
 			"optionscode"	=> "text",
 			"value"			=> $mybb->settings['homeurl'],

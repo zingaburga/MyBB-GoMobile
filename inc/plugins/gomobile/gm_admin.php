@@ -89,23 +89,23 @@ function gomobile_install()
 		"homename"          => array("text", $mybb->settings['homename']),
 		"homelink"          => array("text", $mybb->settings['homeurl']),
 		"ua_list"           => array("textarea",
-"/ip[ho](.+?)mobile(.+?)safari/i
+"/ip[ho].+?mobile.+?safari/i
 /mobile/i
-/Android(.+?)/i
-/Opera Mini(.+?)/i
-/BlackBerry(.+?)/i
-/IEMobile(.+?)/i
-/Windows Phone(.+?)/i
-/HTC(.+?)/i
-/Nokia(.+?)/i
-/Netfront(.+?)/i
-/SmartPhone(.+?)/i
-/Symbian(.+?)/i
-/SonyEricsson(.+?)/i
-/AvantGo(.+?)/i
-/DoCoMo(.+?)/i
-/Pre\/(.+?)/i
-/UP.Browser(.+?)/i")
+/Android/i
+/Opera Mini/i
+/BlackBerry/i
+/IEMobile/i
+/Windows Phone/i
+/HTC/i
+/Nokia/i
+/Netfront/i
+/SmartPhone/i
+/Symbian/i
+/SonyEricsson/i
+/AvantGo/i
+/DoCoMo/i
+/Pre\//i
+/UP\.Browser/i")
 	) as $name => $opts) {
 		$lang_title = "setting_gomobile_{$name}";
 		$lang_desc = "setting_gomobile_{$name}_desc";

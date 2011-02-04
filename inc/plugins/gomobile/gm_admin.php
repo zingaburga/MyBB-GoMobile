@@ -27,6 +27,10 @@ function gomobile_install()
 	global $db, $mybb, $lang;
 	$lang->load('gomobile');
 
+	$tinyint = 'smallint';
+	if($db->type == 'mysql' || $db->type == 'mysqli')
+		$tinyint = 'tinyint';
+	
 	// Add a column to the posts & threads tables for tracking mobile posts
 	$db->write_query("ALTER TABLE ".TABLE_PREFIX."posts ADD mobile {$tinyint}(1) NOT NULL default '0'");
 	$db->write_query("ALTER TABLE ".TABLE_PREFIX."threads ADD mobile {$tinyint}(1) NOT NULL default '0'");

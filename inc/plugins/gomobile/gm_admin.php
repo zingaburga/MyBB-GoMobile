@@ -128,7 +128,7 @@ function gomobile_install()
 function gomobile_is_installed()
 {
 	global $db;
-	return $db->table_exists("gomobile");
+	return (bool)$db->fetch_field($db->simple_select("settinggroups", "gid", "name='gomobile'"), "gid");
 }
 
 function gomobile_activate()
